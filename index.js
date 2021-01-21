@@ -36,6 +36,7 @@ function Earth(radius, texture) {
 
 Earth.prototype = Object.create(THREE.Object3D.prototype);
 
+
 Earth.prototype.createMarker = function (lat, lon) {
     var marker = new Marker();
 
@@ -86,9 +87,12 @@ function init() {
     texture.anisotropy = renderer.capabilities.getMaxAnisotropy();
 
     var earth = new Earth(1.0, texture);
+
+    
     fetch('http://api.open-notify.org/iss-now.json')
         .then(response => response.json())
         .then( data =>{
+            
             earth.createMarker(data['iss_position']['latitude'], data['iss_position']['longitude']); // ISS
     })
 
@@ -113,4 +117,5 @@ function animate() {
     controls.update();
 
     renderer.render(scene, camera);
+
 }
