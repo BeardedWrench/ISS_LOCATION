@@ -7,7 +7,7 @@ function Marker() {
     var sphereRadius = 0.08;
     var height = 0.20;
 
-    var material = new THREE.MeshPhongMaterial({ color: 0xbab68f });
+    var material = new THREE.MeshPhongMaterial({ color: 0xffffff });
 
     var sphere = new THREE.Mesh(new THREE.SphereBufferGeometry(sphereRadius, 16, 8), material);
     sphere.position.y = height * 0.95 + sphereRadius;
@@ -86,15 +86,11 @@ function init() {
     texture.anisotropy = renderer.capabilities.getMaxAnisotropy();
 
     var earth = new Earth(1.0, texture);
-
     fetch('http://api.open-notify.org/iss-now.json')
-    .then(response => response.json())
-    .then( data =>{
-        earth.createMarker(data['iss_position']['latitude'], data['iss_position']['longitude']); // ISS
+        .then(response => response.json())
+        .then( data =>{
+            earth.createMarker(data['iss_position']['latitude'], data['iss_position']['longitude']); // ISS
     })
-        
-    
-
 
     scene.add(earth);
 
